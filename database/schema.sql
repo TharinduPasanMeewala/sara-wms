@@ -1,16 +1,19 @@
 -- Complete SQL schema with CREATE TABLE statements
-CREATE TYPE sync_direction AS ENUM ('INBOUND', 'OUTBOUND');
+CREATE TYPE sync_direction AS ENUM ('IN', 'OUT');
 CREATE TYPE entity_type AS ENUM ('SHIPMENT', 'ORDER', 'STOCK_MOVEMENT', 'INVENTORY', 'LOT_SERIAL', 'SKU', 'LOCATION', 'WAREHOUSE', 'ROLE');
 CREATE TYPE sync_status AS ENUM ('PENDING', 'SUCCESS', 'FAILED');
-CREATE TYPE order_type AS ENUM ('PURCHASE', 'SALES');
-CREATE TYPE shipment_status AS ENUM ('PENDING', 'SHIPPED', 'DELIVERED', 'CANCELLED');
-CREATE TYPE movement_type AS ENUM ('IN', 'OUT');
-CREATE TYPE reference_type AS ENUM ('ORDER', 'SHIPMENT');
+CREATE TYPE shipment_status AS ENUM ('PENDING', 'SHIPPED', 'DELIVERED', 'RETURNED');
+CREATE TYPE order_type AS ENUM ('PURCHASE', 'SALE');
+CREATE TYPE order_status AS ENUM ('OPEN', 'CLOSED', 'CANCELLED');
+CREATE TYPE movement_type AS ENUM ('INCOMING', 'OUTGOING');
 CREATE TYPE tracking_type AS ENUM ('LOT', 'SERIAL');
-CREATE TYPE location_type AS ENUM ('WAREHOUSE', 'SHELF');
-CREATE TYPE location_status AS ENUM ('ACTIVE', 'INACTIVE');
+CREATE TYPE lot_serial_status AS ENUM ('ACTIVE', 'EXPIRED', 'INACTIVE');
+CREATE TYPE location_type AS ENUM ('STORAGE', 'PICK', 'RECEIVE');
+CREATE TYPE warehouse_status AS ENUM ('ACTIVE', 'INACTIVE');
+CREATE TYPE role_permissions AS ENUM ('READ', 'WRITE', 'DELETE');
+
 CREATE TABLE ERPSyncLog (
-    sync_log_id VARCHAR PRIMARY KEY,
+    sync_log_id VARCHAR NOT NULL PRIMARY KEY,
     tenant_id VARCHAR NOT NULL,
     sync_direction sync_direction NOT NULL,
     entity_type entity_type NOT NULL,
@@ -25,7 +28,7 @@ CREATE TABLE ERPSyncLog (
 );
 
 CREATE TABLE Shipment (
-    shipment_id VARCHAR PRIMARY KEY,
+    shipment_id VARCHAR NOT NULL PRIMARY KEY,
     tenant_id VARCHAR NOT NULL,
     order_id VARCHAR NOT NULL,
     carrier_name VARCHAR NOT NULL,
@@ -42,12 +45,12 @@ CREATE TABLE Shipment (
     updated_at TIMESTAMP NOT NULL
 );
 
-CREATE TABLE Order (
-    order_id VARCHAR PRIMARY KEY,
+CREATE TABLE "Order" (
+    order_id VARCHAR NOT NULL PRIMARY KEY,
     tenant_id VARCHAR NOT NULL,
     order_type order_type NOT NULL,
     erp_order_number VARCHAR NOT NULL,
-    order_status sync_status NOT NULL,
+    order_status order_status NOT NULL,
     expected_date DATE,
     supplier_or_customer_name VARCHAR NOT NULL,
     shipping_address JSON,
@@ -60,7 +63,7 @@ CREATE TABLE Order (
 );
 
 CREATE TABLE StockMovement (
-    movement_id VARCHAR PRIMARY KEY,
+    movement_id VARCHAR NOT NULL PRIMARY KEY,
     tenant_id VARCHAR NOT NULL,
     movement_type movement_type NOT NULL,
     sku_id VARCHAR NOT NULL,
@@ -69,7 +72,7 @@ CREATE TABLE StockMovement (
     to_location_id VARCHAR,
     quantity NUMERIC NOT NULL,
     uom VARCHAR NOT NULL,
-    reference_type reference_type,
+    reference_type entity_type,
     reference_id VARCHAR,
     performed_by_user_id VARCHAR NOT NULL,
     erp_sync_status sync_status NOT NULL,
@@ -78,7 +81,7 @@ CREATE TABLE StockMovement (
 );
 
 CREATE TABLE Inventory (
-    inventory_id VARCHAR PRIMARY KEY,
+    inventory_id VARCHAR NOT NULL PRIMARY KEY,
     tenant_id VARCHAR NOT NULL,
     location_id VARCHAR NOT NULL,
     sku_id VARCHAR NOT NULL,
@@ -93,7 +96,7 @@ CREATE TABLE Inventory (
 );
 
 CREATE TABLE LotSerial (
-    lot_serial_id VARCHAR PRIMARY KEY,
+    lot_serial_id VARCHAR NOT NULL PRIMARY KEY,
     tenant_id VARCHAR NOT NULL,
     sku_id VARCHAR NOT NULL,
     tracking_type tracking_type NOT NULL,
@@ -103,14 +106,14 @@ CREATE TABLE LotSerial (
     expiry_date DATE,
     receipt_date DATE NOT NULL,
     supplier_lot_ref VARCHAR,
-    status sync_status NOT NULL,
+    status lot_serial_status NOT NULL,
     country_of_origin VARCHAR,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
 );
 
 CREATE TABLE SKU (
-    sku_id VARCHAR PRIMARY KEY,
+    sku_id VARCHAR NOT NULL PRIMARY KEY,
     tenant_id VARCHAR NOT NULL,
     sku_code VARCHAR NOT NULL,
     sku_name VARCHAR NOT NULL,
@@ -131,7 +134,7 @@ CREATE TABLE SKU (
 );
 
 CREATE TABLE Location (
-    location_id VARCHAR PRIMARY KEY,
+    location_id VARCHAR NOT NULL PRIMARY KEY,
     warehouse_id VARCHAR NOT NULL,
     parent_location_id VARCHAR,
     location_code VARCHAR NOT NULL,
@@ -140,7 +143,7 @@ CREATE TABLE Location (
     path VARCHAR NOT NULL,
     max_weight_kg NUMERIC,
     max_volume_m3 NUMERIC,
-    location_status location_status NOT NULL,
+    location_status warehouse_status NOT NULL,
     is_pickable BOOLEAN NOT NULL,
     is_receivable BOOLEAN NOT NULL,
     created_at TIMESTAMP NOT NULL,
@@ -148,7 +151,7 @@ CREATE TABLE Location (
 );
 
 CREATE TABLE Warehouse (
-    warehouse_id VARCHAR PRIMARY KEY,
+    warehouse_id VARCHAR NOT NULL PRIMARY KEY,
     tenant_id VARCHAR NOT NULL,
     warehouse_code VARCHAR NOT NULL,
     warehouse_name VARCHAR NOT NULL,
@@ -165,7 +168,7 @@ CREATE TABLE Warehouse (
 );
 
 CREATE TABLE Role (
-    role_id VARCHAR PRIMARY KEY,
+    role_id VARCHAR NOT NULL PRIMARY KEY,
     tenant_id VARCHAR NOT NULL,
     role_name VARCHAR NOT NULL,
     permissions JSON NOT NULL,
