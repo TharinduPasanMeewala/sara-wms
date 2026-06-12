@@ -1,1 +1,15 @@
-@tailwind base; @tailwind components; @tailwind utilities; *, *::before, *::after { box-sizing: border-box; } body { margin: 0; font-family: sans-serif; }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --primary-color: #3B82F6;
+    --secondary-color: #FBBF24;
+    --text-color: #1F2937;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F9FAFB;
+    color: var(--text-color);
+}
