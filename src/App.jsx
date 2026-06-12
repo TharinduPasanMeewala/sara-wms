@@ -1,35 +1,28 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MobileReceiving from './pages/MobileReceiving';
-import AdminSettings from './pages/AdminSettings';
-import AdminTenants from './pages/AdminTenants';
-import AdminRoles from './pages/AdminRoles';
-import AdminUsers from './pages/AdminUsers';
-import StockMovementReport from './pages/StockMovementReport';
-import InventoryAgingReport from './pages/InventoryAgingReport';
-import ERPIntegrationMonitor from './pages/ERPIntegrationMonitor';
-import ShipmentDetail from './pages/ShipmentDetail';
-import ShipmentManagement from './pages/ShipmentManagement';
-import Layout from './components/Layout';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import DashboardPage from './pages/Dashboard.jsx'
+import MobileReceivingPutawayPage from './pages/MobileReceivingPutaway.jsx'
+import SystemSettingsConfigurationPage from './pages/SystemSettingsConfiguration.jsx'
+import TenantManagementPage from './pages/TenantManagement.jsx'
+import RolePermissionConfigurationPage from './pages/RolePermissionConfiguration.jsx'
+import UserManagementPage from './pages/UserManagement.jsx'
+import StockMovementSummaryReportPage from './pages/StockMovementSummaryReport.jsx'
+import InventoryAgingReportPage from './pages/InventoryAgingReport.jsx'
+import ERPIntegrationMonitorPage from './pages/ERPIntegrationMonitor.jsx'
 
-function App() {
+export default function App() {
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path='/mobile/receiving' element={<MobileReceiving />} />
-          <Route path='/admin/settings' element={<AdminSettings />} />
-          <Route path='/admin/tenants' element={<AdminTenants />} />
-          <Route path='/admin/roles' element={<AdminRoles />} />
-          <Route path='/admin/users' element={<AdminUsers />} />
-          <Route path='/reports/stock-movements' element={<StockMovementReport />} />
-          <Route path='/reports/inventory-aging' element={<InventoryAgingReport />} />
-          <Route path='/integrations/erp' element={<ERPIntegrationMonitor />} />
-          <Route path='/shipments/:shipmentId' element={<ShipmentDetail />} />
-          <Route path='/shipments' element={<ShipmentManagement />} />
-        </Routes>
-      </Layout>
-    </Router>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/mobile/receiving" element={<MobileReceivingPutawayPage />} />
+        <Route path="/admin/settings" element={<SystemSettingsConfigurationPage />} />
+        <Route path="/admin/tenants" element={<TenantManagementPage />} />
+        <Route path="/admin/roles" element={<RolePermissionConfigurationPage />} />
+        <Route path="/admin/users" element={<UserManagementPage />} />
+        <Route path="/reports/stock-movements" element={<StockMovementSummaryReportPage />} />
+        <Route path="/reports/inventory-aging" element={<InventoryAgingReportPage />} />
+        <Route path="/integrations/erp" element={<ERPIntegrationMonitorPage />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
-
-export default App;
