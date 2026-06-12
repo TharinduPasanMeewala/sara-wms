@@ -1,12 +1,1 @@
-import React from 'react';
-
-function Dashboard() {
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-      <p className="text-gray-700">Welcome to the Warehouse Management System!</p>
-    </div>
-  );
-}
-
-export default Dashboard;
+import React from 'react';\n\nexport const Dashboard = () => {\n  return (\n    <div className='p-8'>\n      <h1 className='text-2xl font-bold'>Dashboard</h1>\n      <p>Welcome to Sara WMS!</p>\n    </div>\n  );\n};
