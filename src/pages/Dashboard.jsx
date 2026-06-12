@@ -1,1 +1,1 @@
-import React from 'react';\nimport Layout from '../components/Layout';\n\nconst Dashboard = () => {\n  return (\n    <Layout>\n      <h1 className='text-2xl font-bold'>Dashboard</h1>\n      <p className='mt-4'>Welcome to the Sara WMS Dashboard</p>\n    </Layout>\n  );\n};\n\nexport default Dashboard;
+import React from 'react'; const Dashboard = () => { return (<div className=\
