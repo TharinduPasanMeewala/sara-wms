@@ -1,0 +1,16 @@
+// index.js
+const express = require('express');
+const bodyParser = require('body-parser');
+const routes = require('./routes');
+const middleware = require('./middleware');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(bodyParser.json());
+app.use(middleware.auth);
+app.use('/api/v1', routes);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
