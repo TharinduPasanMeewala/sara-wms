@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Dashboard = () => {
+function Dashboard() {
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
-      <p>Welcome to Sara WMS!</p>
+      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+      <p className="text-gray-700">Welcome to the Warehouse Management System!</p>
     </div>
   );
-};
+}
 
 export default Dashboard;
