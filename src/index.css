@@ -1,1 +1,16 @@
-@tailwind base; @tailwind components; @tailwind utilities; :root { --primary-color: #4a86e8; --secondary-color: #f7c6c7; } body { font-family: 'Inter', sans-serif; }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+    --primary-color: #3B82F6;
+    --secondary-color: #E5E7EB;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--secondary-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-color);
+}
