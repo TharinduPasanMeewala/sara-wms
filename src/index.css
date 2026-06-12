@@ -3,13 +3,17 @@
 @tailwind utilities;
 
 :root {
-    --primary-color: #3B82F6;
-    --secondary-color: #FBBF24;
-    --text-color: #1F2937;
+  --primary-color: #1D4ED8;
+  --secondary-color: #9333EA;
+  --success-color: #22C55E;
+  --warning-color: #FBBF24;
+  --danger-color: #EF4444;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: #F9FAFB;
-    color: var(--text-color);
+  @apply bg-gray-100 font-sans;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply text-gray-800;
 }
