@@ -1,1 +1,28 @@
-import React from 'react'; import { Link } from 'react-router-dom'; const Layout = ({ children }) => { return ( <div className='flex'> <aside className='w-64 bg-gray-800 text-white h-screen'> <nav className='p-6'> <h2 className='text-lg font-bold'>Sara WMS</h2> <ul className='mt-4'> <li><Link to='/mobile/receiving' className='block py-2'>Receiving</Link></li> <li><Link to='/admin/settings' className='block py-2'>Settings</Link></li> <li><Link to='/admin/tenants' className='block py-2'>Tenants</Link></li> <li><Link to='/admin/roles' className='block py-2'>Roles</Link></li> <li><Link to='/admin/users' className='block py-2'>Users</Link></li> <li><Link to='/reports/stock-movements' className='block py-2'>Stock Movements</Link></li> <li><Link to='/reports/inventory-aging' className='block py-2'>Inventory Aging</Link></li> <li><Link to='/integrations/erp' className='block py-2'>ERP Monitor</Link></li> <li><Link to='/shipments' className='block py-2'>Shipments</Link></li> </ul> </nav> </aside> <main className='flex-1 p-6'>{children}</main> </div> ); }; export default Layout;
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+function Layout({ children }) {
+  return (
+    <div className="flex">
+      <nav className="bg-gray-800 w-64 h-screen">
+        <div className="p-4">
+          <h2 className="text-white text-lg font-semibold">Sara WMS</h2>
+        </div>
+        <ul className="mt-6">
+          <li><Link className="text-gray-300 hover:bg-gray-700 hover:text-white block p-2" to='/mobile/receiving'>Mobile Receiving</Link></li>
+          <li><Link className="text-gray-300 hover:bg-gray-700 hover:text-white block p-2" to='/admin/settings'>Settings</Link></li>
+          <li><Link className="text-gray-300 hover:bg-gray-700 hover:text-white block p-2" to='/admin/tenants'>Tenants</Link></li>
+          <li><Link className="text-gray-300 hover:bg-gray-700 hover:text-white block p-2" to='/admin/roles'>Roles</Link></li>
+          <li><Link className="text-gray-300 hover:bg-gray-700 hover:text-white block p-2" to='/admin/users'>Users</Link></li>
+          <li><Link className="text-gray-300 hover:bg-gray-700 hover:text-white block p-2" to='/reports/stock-movements'>Stock Movements</Link></li>
+          <li><Link className="text-gray-300 hover:bg-gray-700 hover:text-white block p-2" to='/reports/inventory-aging'>Inventory Aging</Link></li>
+          <li><Link className="text-gray-300 hover:bg-gray-700 hover:text-white block p-2" to='/integrations/erp'>ERP Integration</Link></li>
+          <li><Link className="text-gray-300 hover:bg-gray-700 hover:text-white block p-2" to='/shipments'>Shipments</Link></li>
+        </ul>
+      </nav>
+      <main className="flex-1 p-6">{children}</main>
+    </div>
+  );
+}
+
+export default Layout;
