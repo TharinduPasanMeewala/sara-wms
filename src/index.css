@@ -1,1 +1,1 @@
-@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n:root {\n  --primary-color: #1D4ED8;\n  --secondary-color: #60A5FA;\n  --error-color: #EF4444;\n}\n\nbody {\n  @apply bg-gray-100 text-gray-800;\n}
+@tailwind base; @tailwind components; @tailwind utilities; *, *::before, *::after { box-sizing: border-box; } body { margin: 0; font-family: sans-serif; }
