@@ -1,1 +1,16 @@
-@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n:root {\n  --primary-color: #2563eb;\n  --secondary-color: #f9fafb;\n  --error-color: #ef4444;\n}\n\nbody {\n  font-family: 'Inter', sans-serif;\n  background-color: var(--secondary-color);\n}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #3b82f6;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900;
+}
+
+h1, h2, h3, h4 {
+  @apply font-bold;
+}
