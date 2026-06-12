@@ -1,1 +1,25 @@
-import React from 'react';\nimport { Link } from 'react-router-dom';\n\nconst Layout = ({ children }) => {\n  return (\n    <div className='flex'>\n      <aside className='w-64 bg-gray-800 text-white min-h-screen p-5'>\n        <h2 className='text-lg font-bold mb-5'>WMS Menu</h2>\n        <nav>\n          <ul>\n            <li><Link to='/' className='block py-2 hover:bg-gray-700'>Dashboard</Link></li>\n            <li><Link to='/mobile/receiving' className='block py-2 hover:bg-gray-700'>Mobile Receiving</Link></li>\n            <li><Link to='/admin/settings' className='block py-2 hover:bg-gray-700'>Settings</Link></li>\n            <li><Link to='/admin/tenants' className='block py-2 hover:bg-gray-700'>Tenants</Link></li>\n            <li><Link to='/admin/roles' className='block py-2 hover:bg-gray-700'>Roles</Link></li>\n            <li><Link to='/admin/users' className='block py-2 hover:bg-gray-700'>Users</Link></li>\n            <li><Link to='/reports/stock-movements' className='block py-2 hover:bg-gray-700'>Stock Movements</Link></li>\n            <li><Link to='/reports/inventory-aging' className='block py-2 hover:bg-gray-700'>Inventory Aging</Link></li>\n            <li><Link to='/integrations/erp' className='block py-2 hover:bg-gray-700'>ERP Integration</Link></li>\n            <li><Link to='/shipments' className='block py-2 hover:bg-gray-700'>Shipments</Link></li>\n          </ul>\n        </nav>\n      </aside>\n      <main className='flex-1 p-8'>\n        {children}\n      </main>\n    </div>\n  );\n};\n\nexport default Layout;
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const Layout = ({ children }) => {
+  return (
+    <div className="flex">
+      <nav className="w-64 bg-gray-800 text-white h-screen p-5">
+        <ul>
+          <li><Link to="/mobile/receiving">Mobile Receiving</Link></li>
+          <li><Link to="/admin/settings">Admin Settings</Link></li>
+          <li><Link to="/admin/tenants">Tenants</Link></li>
+          <li><Link to="/admin/roles">Roles</Link></li>
+          <li><Link to="/admin/users">Users</Link></li>
+          <li><Link to="/reports/stock-movements">Stock Movements</Link></li>
+          <li><Link to="/reports/inventory-aging">Inventory Aging</Link></li>
+          <li><Link to="/integrations/erp">ERP Integration</Link></li>
+          <li><Link to="/shipments">Shipments</Link></li>
+        </ul>
+      </nav>
+      <main className="flex-1 p-5">{children}</main>
+    </div>
+  );
+};
+
+export default Layout;
